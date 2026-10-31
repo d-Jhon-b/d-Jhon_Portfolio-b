@@ -1,0 +1,70 @@
+name: Build Container & Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-container:
+    name: Lint, Build Container & Extract Static Artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build production Docker image (runs Biome Lint + Vite Build)
+        run: docker build -t jhon-portfolio:latest .
+
+      - name: Extract compiled SPA from container for GitHub Pages
+        run: |
+          container_id=$(docker create jhon-portfolio:latest)
+          docker cp "$container_id:/usr/share/nginx/html" ./dist
+          docker rm -v "$container_id"
+
+      - name: Smoke-test running Docker container on port 8080
+        run: |
+          docker run -d --name portfolio-test -p 8080:80 jhon-portfolio:latest
+          sleep 2
+          curl --fail http://localhost:8080/ > /dev/null
+          docker stop portfolio-test
+          docker rm portfolio-test
+
+      - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact for GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch')
+    needs: build-container
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
