@@ -5,6 +5,7 @@ export class Project {
     public readonly description: string,
     public readonly techStack: string[],
     public readonly repoUrl: string,
+    public readonly liveUrl: string | undefined,
     public readonly stars: number,
   ) {
     this.validate();
