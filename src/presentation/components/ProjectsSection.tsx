@@ -1,4 +1,5 @@
 import type { Project } from "../../domain/entities/project";
+import { ArrowUpRightIcon } from "./icons/PhosphorIcons";
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -18,130 +19,83 @@ export function ProjectsSection({
   availableTechs,
 }: ProjectsSectionProps) {
   return (
-    <section id="projetos" className="border-b border-white/10 py-16 md:py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div className="space-y-2">
-            <p className="font-mono text-xs font-semibold tracking-widest text-brand-olive uppercase">
-              Clean Architecture • Query Side
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-brand-gold sm:text-4xl">
-              Projetos de Destaque
-            </h2>
-            <p className="max-w-2xl text-sm text-gray-300 sm:text-base">
-              Soluções reais em produção, MVPs premiados e arquiteturas de backend/frontend
-              alimentadas pelo repositório de domínio.
-            </p>
+    <section id="projetos" className="border-t border-line py-16 md:py-[120px]">
+      <div className="mx-auto max-w-[44rem] px-6">
+        <div className="flex flex-wrap items-baseline justify-between gap-4">
+          <h2 className="text-[28px] leading-[1.25] font-medium text-ink">Projetos</h2>
+
+          <div className="flex flex-wrap gap-3 text-sm">
+            {availableTechs.slice(0, 6).map((tech) => {
+              const isActive = selectedTech === tech;
+              return (
+                <button
+                  key={tech}
+                  type="button"
+                  onClick={() => onSelectTech(tech)}
+                  className={`min-h-[44px] cursor-pointer px-1 text-sm ${
+                    isActive
+                      ? "text-accent underline decoration-accent decoration-1 underline-offset-4 font-medium"
+                      : "text-muted hover:text-ink"
+                  }`}
+                >
+                  {tech}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        <div className="mb-8 flex flex-wrap gap-2">
-          {availableTechs.map((tech) => {
-            const isActive = selectedTech === tech;
-            return (
-              <button
-                key={tech}
-                type="button"
-                onClick={() => onSelectTech(tech)}
-                className={`cursor-pointer rounded-lg px-3.5 py-1.5 font-mono text-xs font-semibold transition-all ${
-                  isActive
-                    ? "bg-brand-primary text-white shadow-md"
-                    : "border border-white/15 bg-brand-surface/60 text-gray-300 hover:border-brand-gold/50 hover:text-white"
-                }`}
-              >
-                {tech}
-              </button>
-            );
-          })}
-        </div>
+        {loading && <p className="mt-8 text-sm text-muted">Carregando projetos...</p>}
 
-        {loading && (
-          <div className="rounded-2xl border border-white/10 bg-brand-surface/50 p-10 text-center text-sm text-gray-300">
-            Carregando projetos do domínio...
-          </div>
-        )}
-
-        {error && (
-          <div className="rounded-2xl border border-red-500/40 bg-red-950/30 p-6 text-sm text-red-200">
-            {error}
-          </div>
-        )}
+        {error && <p className="mt-8 text-sm text-accent">{error}</p>}
 
         {!loading && !error && (
-          <div className="grid gap-6 md:grid-cols-2">
-            {projects.map((project) => (
-              <article
-                key={project.id}
-                className={`flex flex-col justify-between rounded-2xl border p-6 shadow-lg transition-all hover:translate-y-[-2px] ${
-                  project.isHighLight
-                    ? "border-brand-gold/40 bg-brand-surface/90"
-                    : "border-white/10 bg-brand-surface/60"
-                }`}
-              >
-                <div className="space-y-4">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    {project.badge ? (
-                      <span className="rounded-full border border-brand-gold/50 bg-brand-dark/80 px-3 py-1 font-mono text-xs font-semibold text-brand-gold">
-                        {project.badge}
-                      </span>
-                    ) : (
-                      <span className="rounded-full border border-white/15 bg-brand-dark/60 px-3 py-1 font-mono text-xs text-gray-300">
-                        Repositório GitHub
-                      </span>
-                    )}
+          <div className="mt-8 divide-y divide-line border-t border-b border-line">
+            {projects.map((project) => {
+              const primaryUrl = project.liveUrl ?? project.repoUrl;
+              return (
+                <article
+                  key={project.id}
+                  className="grid grid-cols-1 gap-2 py-6 sm:grid-cols-[4rem_1fr] sm:gap-6"
+                >
+                  <div className="text-sm text-muted">{project.period ?? "2026"}</div>
 
-                    {project.period && (
-                      <span className="font-mono text-xs text-gray-400">{project.period}</span>
-                    )}
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                      <h3 className="text-[20px] leading-[1.3] font-medium text-ink">
+                        <a
+                          href={primaryUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="minimal-link inline-flex items-center gap-1.5"
+                        >
+                          <span>{project.title}</span>
+                          <ArrowUpRightIcon size={15} />
+                        </a>
+                      </h3>
+
+                      {project.liveUrl && (
+                        <a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="minimal-link inline-flex items-center gap-1 text-sm text-muted"
+                        >
+                          <span>Código</span>
+                          <ArrowUpRightIcon size={13} />
+                        </a>
+                      )}
+                    </div>
+
+                    <p className="max-w-[38rem] text-base leading-[1.6] text-ink/90">
+                      {project.description}
+                    </p>
+
+                    <p className="text-sm text-muted">{project.techStack.join(" · ")}</p>
                   </div>
-
-                  <h3 className="text-xl font-bold text-white">{project.title}</h3>
-
-                  <p className="text-sm leading-relaxed text-gray-200">{project.description}</p>
-                </div>
-
-                <div className="mt-6 space-y-5 pt-4 border-t border-white/10">
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-md border border-brand-olive/30 bg-brand-dark/70 px-2.5 py-1 font-mono text-xs font-medium text-brand-olive"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-3">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-brand-primary px-4 py-2 text-xs font-semibold text-white transition-opacity hover:opacity-90"
-                      >
-                        <span>
-                          {project.liveUrl.includes("lnkd.in") ||
-                          project.liveUrl.includes("linkedin")
-                            ? "Ver Post da Premiação"
-                            : "Acessar Aplicação"}
-                        </span>
-                        <span aria-hidden="true">↗</span>
-                      </a>
-                    )}
-                    <a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-brand-gold/40 bg-brand-dark/60 px-4 py-2 text-xs font-semibold text-brand-gold transition-colors hover:border-brand-gold hover:text-white"
-                    >
-                      <span>Repositório GitHub</span>
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         )}
       </div>

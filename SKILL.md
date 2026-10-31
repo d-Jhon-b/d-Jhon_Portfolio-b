@@ -67,11 +67,11 @@ As cores do portfólio foram estrategicamente selecionadas para transmitir sobri
 
 | Hexadecimal | Nome do Token | Aplicação Semântica Principal |
 | :--- | :--- | :--- |
-| `#333245` | `--color-brand-dark` | Fundo principal da aplicação (Dark Base), reduzindo fadiga visual. |
-| `#454432` | `--color-brand-surface` | Fundo de cards, containers flutuantes e superfícies de destaque sutil. |
-| `#7771C4` | `--color-brand-primary` | Cor de destaque primária (Accent), aplicada em CTAs, botões e links ativos. |
-| `#C4AD72` | `--color-brand-gold` | Tom secundário de destaque (Gold), usado em títulos de relevância e ícones. |
-| `#C4C172` | `--color-brand-olive` | Tom terciário (Olive claro), ideal para tags de tecnologias e metadados. |
+| `#4B3F31` | `--bg` / `--color-brand-dark` | Fundo principal da aplicação (Dark Base), reduzindo fadiga visual. |
+| `#906D35` | `--line` / `--color-brand-surface` | Linhas divisórias de 1px e estrutura sutil. |
+| `#9C8520` | `--muted` / `--color-brand-primary` | Texto secundário, anos, metadados e tecnologias. |
+| `#F9D27B` | `--ink` / `--color-brand-gold` | Texto principal e títulos de alto contraste. |
+| `#FFF479` | `--accent` / `--color-brand-olive` | Único destaque interativo (hover de links, foco visível e estados ativos). |
 
 ---
 

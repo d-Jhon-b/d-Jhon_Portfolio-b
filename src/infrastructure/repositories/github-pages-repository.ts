@@ -20,51 +20,51 @@ export class GithubProjectRepository implements IProjectRepository {
     const curatedData = [
       {
         id: "curated-hackathon-fatec",
-        title: "1º Lugar — 1º Hackathon da FATEC Itaquera",
+        title: "MVP de comunicação estudantil (1º Lugar Hackathon FATEC)",
         description:
-          "Desenvolvimento de MVP completo sob pressão (12 horas de projeto) com o tema 'Como a tecnologia pode ajudar na comunicação do estudante da FATEC', utilizando Firebase (BaaS) e banco NoSQL Firestore orientado a documentos.",
-        techStack: ["Firebase", "Firestore NoSQL", "BaaS", "React", "TypeScript"],
+          "Plataforma construída em 12 horas para centralizar avisos e comunicação dos estudantes da FATEC Itaquera com sincronização em tempo real.",
+        techStack: ["Firebase", "Firestore NoSQL", "React", "TypeScript"],
         repoUrl: "https://github.com/d-Jhon-b",
         liveUrl: "https://lnkd.in/p/dfZhxJFH",
         stars: 50,
-        badge: "🏆 1º Lugar Hackathon FATEC",
-        period: "Setembro 2026",
+        badge: "1º Lugar Hackathon",
+        period: "2026",
       },
       {
         id: "curated-carteirinha-digital",
-        title: "App Carteirinha Digital (FATEC Itaquera)",
+        title: "App Carteirinha Digital FATEC Itaquera",
         description:
-          "Interface gráfica e aplicação PWA desenvolvida para alunos da FATEC Itaquera, com API REST estruturada em Next.js e automação em Python para leitura e parsing de PDFs de aprovação estudantil.",
+          "Aplicação PWA para identificação estudantil com API REST em Next.js e scripts em Python que leem PDFs para aprovar cadastros automaticamente.",
         techStack: ["React PWA", "TypeScript", "Next.js", "Node.js", "Python"],
         repoUrl:
           "https://github.com/Carteirinha-Digital-Fatec-Itaquera/carteirinha-digital-front-end-aluno.git",
         liveUrl: "https://carteirinha-digital-front-end-aluno-alpha.vercel.app/",
         stars: 35,
-        badge: "Em Produção • FATEC",
-        period: "Fev 2026 - Ago 2026",
+        badge: "Produção",
+        period: "2026",
       },
       {
         id: "curated-salafacil-fatec",
-        title: "Sistema Web de Agendamento — SalaFácil (FATEC)",
+        title: "SalaFácil — Agendamento de salas acadêmicas",
         description:
-          "Sistema completo de gestão e reserva de ambientes acadêmicos e salas com TypeScript, React, autenticação integrada Microsoft e containerização com Docker.",
+          "Sistema web para reserva e controle de laboratórios e salas da FATEC com login institucional Microsoft e deploy em container Docker.",
         techStack: ["TypeScript", "React", "Microsoft Auth", "Docker"],
         repoUrl: "https://github.com/AgendaFatec/SalaFacil.git",
         liveUrl: "https://front-end-pi-4-semestre-fq6w.vercel.app/login",
         stars: 28,
-        badge: "Full-Stack & Docker",
+        badge: "Produção",
         period: "2026",
       },
       {
         id: "curated-define-pilates",
-        title: "Sistema Web de Agendamento (Define Pilates)",
+        title: "API de agendamento Define Pilates",
         description:
-          "Arquitetura de backend de alta performance para gestão de salas e agendamentos corporativos desenvolvido com Python, FastAPI e autenticação segura via JWT.",
-        techStack: ["Python", "FastAPI", "JWT Auth", "REST API"],
+          "Backend REST para gestão de horários, salas e alunos de estúdio de pilates, com controle de acesso via autenticação JWT.",
+        techStack: ["Python", "FastAPI", "JWT", "REST API"],
         repoUrl: "https://github.com/d-Jhon-b/BackEnd_Projeto_Sistema_Empresa_Pillates.git",
         liveUrl: undefined,
         stars: 22,
-        badge: "Backend Architecture",
+        badge: "Backend",
         period: "2026",
       },
     ];
@@ -97,11 +97,12 @@ export class GithubProjectRepository implements IProjectRepository {
       "backend_projeto_sistema_empresa_pillates",
       "carteirinha-digital-front-end-aluno",
       "salafacil",
+      "d-jhon_portfolio-b",
     ]);
 
     const mappedRemote = remoteRepos
       .filter((repo) => !knownRepoNames.has(repo.name.toLowerCase()))
-      .slice(0, 4)
+      .slice(0, 3)
       .map((repo) => this.mapper.toDomain(repo));
 
     return [...curatedProjects, ...mappedRemote];

@@ -1,64 +1,50 @@
 import type { SocialLinksProps } from "../../domain/entities/profile";
+import { GithubLogoIcon, LinkedinLogoIcon } from "./icons/PhosphorIcons";
 
 interface NavbarProps {
+  fullName: string;
   socials: SocialLinksProps;
 }
 
-export function Navbar({ socials }: NavbarProps) {
+export function Navbar({ fullName, socials }: NavbarProps) {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-brand-dark/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a
-          href="#sobre"
-          className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-white transition-colors hover:text-brand-gold"
-        >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary font-mono text-sm font-extrabold text-white shadow-sm">
-            JD
-          </span>
-          <span>
-            Jhon<span className="text-brand-gold">.dev</span>
-          </span>
+    <header className="border-b border-line">
+      <div className="mx-auto flex max-w-[44rem] flex-wrap items-center justify-between gap-4 px-6 py-4">
+        <a href="#topo" className="min-h-[44px] inline-flex items-center text-base font-medium">
+          {fullName}
         </a>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium text-gray-300 md:flex">
-          <a href="#sobre" className="transition-colors hover:text-brand-gold">
-            Sobre
-          </a>
-          <a href="#experiencia" className="transition-colors hover:text-brand-gold">
-            Experiência
-          </a>
-          <a href="#projetos" className="transition-colors hover:text-brand-gold">
+        <nav aria-label="Navegação principal" className="flex flex-wrap items-center gap-5 text-sm">
+          <a href="#projetos" className="minimal-link inline-flex min-h-[44px] items-center">
             Projetos
           </a>
-          <a href="#skills" className="transition-colors hover:text-brand-gold">
-            Skills & DevOps
+          <a href="#sobre" className="minimal-link inline-flex min-h-[44px] items-center">
+            Sobre
           </a>
-          <a href="#formacao" className="transition-colors hover:text-brand-gold">
-            Formação
-          </a>
-          <a href="#contato" className="transition-colors hover:text-brand-gold">
+          <a href="#contato" className="minimal-link inline-flex min-h-[44px] items-center">
             Contato
           </a>
-        </nav>
-
-        <div className="flex items-center gap-3">
           <a
             href={socials.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg border border-white/15 bg-brand-surface/60 px-3.5 py-1.5 text-xs font-semibold text-brand-olive transition-all hover:border-brand-gold hover:text-white"
+            aria-label="GitHub"
+            className="minimal-link inline-flex min-h-[44px] items-center gap-1.5"
           >
-            GitHub ({socials.githubHandle})
+            <GithubLogoIcon size={16} />
+            <span>GitHub</span>
           </a>
           <a
             href={socials.linkedinUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg bg-brand-primary px-3.5 py-1.5 text-xs font-semibold text-white transition-all hover:opacity-90"
+            aria-label="LinkedIn"
+            className="minimal-link inline-flex min-h-[44px] items-center gap-1.5"
           >
-            LinkedIn
+            <LinkedinLogoIcon size={16} />
+            <span>LinkedIn</span>
           </a>
-        </div>
+        </nav>
       </div>
     </header>
   );

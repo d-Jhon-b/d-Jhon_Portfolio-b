@@ -120,11 +120,11 @@ Implementa os adaptadores concretos para os contratos do domínio.
 Construída com **React 19**, **TypeScript** e **Tailwind CSS v4** seguindo a paleta semântica definida no `SKILL.md`:
 
 * **Tokens de Tema (`src/index.css` via `@theme` do Tailwind v4):**
-  * `--color-brand-dark: #333245` (Fundo principal)
-  * `--color-brand-surface: #454432` (Cards e superfícies)
-  * `--color-brand-primary: #7771C4` (Ações primárias, botões e CTAs)
-  * `--color-brand-gold: #C4AD72` (Títulos de destaque, badges de premiação e ícones)
-  * `--color-brand-olive: #C4C172` (Tags de tecnologia e metadados)
+  * `--bg: #4B3F31` (Fundo principal escuro terroso)
+  * `--line: #906D35` (Linhas divisórias de 1px, sem sombras ou cards arredondados)
+  * `--muted: #9C8520` (Texto secundário, anos, metadados e stack tecnológica)
+  * `--ink: #F9D27B` (Texto principal e títulos em sentence case)
+  * `--accent: #FFF479` (Único destaque interativo para hover em links e outline de foco; ícones via Phosphor Icons sem emojis)
 * **Custom Hooks (`src/presentation/hooks/`):**
   * `useProjects.ts`: instancia `GithubProjectRepository` + `GetProjectsUseCase` e gerencia estados de `projects`, `loading`, `error` e filtro por tecnologia.
   * `useProfile.ts`: instancia `ProfileRepository` + `GetProfileUseCase` e fornece os dados do currículo para a view.

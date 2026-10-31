@@ -22,31 +22,25 @@ export function HomePage() {
 
   if (profileLoading) {
     return (
-      <div className="flex min-h-svh items-center justify-center bg-brand-dark px-6 text-center">
-        <div className="space-y-3">
-          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-brand-gold border-t-transparent" />
-          <p className="font-mono text-sm text-brand-olive">
-            Inicializando camadas de Domínio e Aplicação...
-          </p>
-        </div>
+      <div className="mx-auto flex min-h-svh max-w-[44rem] items-center px-6 text-sm text-muted">
+        Carregando...
       </div>
     );
   }
 
   if (profileError || !profile) {
     return (
-      <div className="flex min-h-svh items-center justify-center bg-brand-dark px-6 text-center text-red-200">
+      <div className="mx-auto flex min-h-svh max-w-[44rem] items-center px-6 text-sm text-accent">
         {profileError ?? "Erro ao inicializar o perfil."}
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-svh flex-col bg-brand-dark text-gray-100">
-      <Navbar socials={profile.socials} />
+    <div className="flex min-h-svh flex-col bg-bg text-ink">
+      <Navbar fullName={profile.fullName} socials={profile.socials} />
       <main>
         <HeroSection profile={profile} />
-        <ExperienceSection experiences={profile.experiences} />
         <ProjectsSection
           projects={projects}
           loading={projectsLoading}
@@ -55,11 +49,12 @@ export function HomePage() {
           onSelectTech={setSelectedTech}
           availableTechs={availableTechs}
         />
-        <SkillsAndDevOpsSection skillCategories={profile.skillCategories} />
+        <ExperienceSection summary={profile.summary} experiences={profile.experiences} />
         <EducationSection education={profile.education} />
+        <SkillsAndDevOpsSection skillCategories={profile.skillCategories} />
         <ContactSection socials={profile.socials} />
       </main>
-      <Footer fullName={profile.fullName} socials={profile.socials} />
+      <Footer fullName={profile.fullName} />
     </div>
   );
 }
