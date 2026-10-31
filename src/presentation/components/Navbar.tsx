@@ -1,3 +1,4 @@
+import webPageIcon from "../../assets/icons/web_page.jpg";
 import type { SocialLinksProps } from "../../domain/entities/profile";
 import { GithubLogoIcon, LinkedinLogoIcon } from "./icons/PhosphorIcons";
 
@@ -10,8 +11,18 @@ export function Navbar({ fullName, socials }: NavbarProps) {
   return (
     <header className="border-b border-line">
       <div className="mx-auto flex max-w-[44rem] flex-wrap items-center justify-between gap-4 px-6 py-4">
-        <a href="#topo" className="min-h-[44px] inline-flex items-center text-base font-medium">
-          {fullName}
+        <a
+          href="#topo"
+          className="inline-flex min-h-[44px] items-center gap-2.5 text-base font-medium text-ink"
+        >
+          <img
+            src={webPageIcon}
+            alt="Ícone Jhon Deyvid"
+            width={28}
+            height={28}
+            className="h-7 w-7 rounded-[2px] object-cover"
+          />
+          <span>{fullName}</span>
         </a>
 
         <nav aria-label="Navegação principal" className="flex flex-wrap items-center gap-5 text-sm">
